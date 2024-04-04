@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>URL shortener</h1>
+    <form method="post" action="{% url 'short' %}">
+    {% csrf_token %}
+    {{form.as_p}}
+    <button type="submit">Short url</button>
+    </form>
+    {% if message %}
+        <p>{{message}}</p>
+    {% endif %}
+{% endblock %}
