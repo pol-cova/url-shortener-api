@@ -9,18 +9,13 @@
                 <div class="text-center">
                     <h1 class="display-4 fw-bold mb-5">Acortas tus urls sencillo y&nbsp;<span class="underline">gratis</span>.</h1>
                     <p class="fs-5 text-muted mb-5">Obten tu link corto con un solo click!</p>
-                    <form class="d-flex justify-content-center flex-wrap" method="post" data-bs-theme="light" action="{% url 'short' %}">
+                    <form class="d-flex justify-content-center flex-wrap" method="post" data-bs-theme="light" id="form-url" action="{% url 'short' %}">
                         {% csrf_token %}
                         <div class="shadow-lg mb-3"><input class="form-control" type="url" name="url" placeholder="Ingresa url:" maxlength="2000" id="id_url"></div>
-                        <div class="shadow-lg mb-3"><button class="btn btn-primary" type="submit">Acortar</button></div>
+                        <div class="shadow-lg mb-3"><button class="btn btn-primary" type="submit" id="submit">Acortar</button></div>
                     </form>
-                    {% if message %}
-                    <div class="alert alert-warning alert-dismissible fade show" role="alert">
-                        <strong>Holy guacamole!</strong> You should check in on some of those fields below.
-                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                    </div>
-                    {% endif %}
-                </div>
+                    {% block result %}
+                    {% endblock %}
             </div>
             <div class="col-12 col-lg-10 mx-auto">
                 <div class="text-center position-relative"><img class="img-fluid" src="{% static 'imgs/url-img.svg' %}" style="width: 800px;"></div>

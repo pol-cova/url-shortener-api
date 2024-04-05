@@ -25,7 +25,17 @@ SECRET_KEY = "django-insecure-^1v3vx9m624lpzg#9_4g@ux!6%z$%+%_m(xt)19uzg4wvc(ls!
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
+
+CORS_ALLOWED_ORIGINS = [
+    'http://localhost:8000',  # Adjust this to match your frontend URL
+]
+
+CORS_ALLOW_METHODS = [
+    'GET',  # Adjust these methods as needed
+    'POST',
+]
+
 
 
 # Application definition
@@ -39,8 +49,10 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     # API app
     "api",
-    # whitenoise
+    # Other apps -> whitenoise, restframework, corsheaders
     "whitenoise.runserver_nostatic",
+    "rest_framework",
+    "corsheaders",
 ]
 
 MIDDLEWARE = [
@@ -52,6 +64,9 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    # corsheaders middleware
+    "corsheaders.middleware.CorsMiddleware",
+
 ]
 
 ROOT_URLCONF = "server.urls"
@@ -134,3 +149,15 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+# Rest framework settings
+REST_FRAMEWORK = {
+    'DEFAULT_THROTTLE_CLASSES': [
+        'rest_framework.throttling.AnonRateThrottle',
+        'rest_framework.throttling.UserRateThrottle'
+    ],
+    'DEFAULT_THROTTLE_RATES': {
+        'anon': '100/min',
+        'user': '100/min'
+    }
+}

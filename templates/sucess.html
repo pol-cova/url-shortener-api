@@ -1,0 +1,19 @@
+{% extends 'index.html' %}
+{% block title %}Mu | URL Acortada{% endblock %}
+{% block result %}
+{% if message %}
+<div class="alert alert-warning alert-dismissible fade show" role="alert">
+    <strong>Listo!</strong> Tu url corta es: <a href="{{ message }}" target="_blank">{{ message }}</a>
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+<h3>El QR de tu link: </h3>
+<div class="text-center"><img src="{% url 'qr' %}" alt="QR de la url"></div>
+<a href="{% url 'qr' %}" class="btn btn-primary mt-3" download="url_qr.png">Descargar QR</a>
+{% endif %}
+{% if error %}
+<div class="alert alert-danger alert-dismissible fade show" role="alert">
+    <strong>Error!</strong> {{ error }}
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+{% endif %}
+{% endblock %}

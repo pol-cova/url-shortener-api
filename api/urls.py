@@ -3,6 +3,7 @@ from . import views
 
 urlpatterns = [
     path('', views.index, name='index'),
-    path('short-url/', views.url_shortener, name='short'),
-    path('<str:key>/', views.redirect_to_url, name='redirect'),
+    path('short-url/', views.UrlShortener.as_view(), name='short'),
+    path('api/v1/qr/', views.GenerateQR.as_view(), name='qr'),
+    path('<str:key>/', views.RedirectToUrl.as_view(), name='redirect'),
 ]
